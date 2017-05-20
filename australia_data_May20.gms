@@ -621,6 +621,7 @@ parameter TechWithCapacityNeededToMeetPeakTS /
   AUSTRALIA.PVP  1
   AUSTRALIA.HWT  1
 /;
+*PVP E HWT sono flaggati in quanto contribuiscono a soddisfare la peak demand.
 *option TechWithCapacityNeededToMeetPeakTS:4:0:1; display TechWithCapacityNeededToMeetPeakTS;
 
 *param  InputActivityRatio      default 0       :=
