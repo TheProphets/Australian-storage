@@ -90,6 +90,11 @@ parameter TechnologyToStorage(REGION,TECHNOLOGY,STORAGE,MODE_OF_OPERATION) 'Link
 parameter TechnologyFromStorage(REGION,TECHNOLOGY,STORAGE,MODE_OF_OPERATION) 'Link a technology to a storage facility for discharging the storage';
 parameter StorageUpperLimit(REGION,STORAGE);
 parameter StorageLowerLimit(REGION,STORAGE);
+*--- added may20
+parameter OperationalLifeStorage( REGION, STORAGE);
+parameter CapitalCostStorage (REGION, STORAGE, YEAR);
+parameter DiscountRateStorage (REGION, STORAGE);
+parameter ResidualStorageCapacity (REGION, STORAGE, YEAR);
 
 *
 * ######## Capacity Constraints #############
@@ -203,6 +208,13 @@ free variable NetStorageCharge(STORAGE,YEAR,TIMESLICE,REGION);
 free variable StorageLevel(STORAGE,BOUNDARY_INSTANCES,REGION);
 free variable StorageCharge(STORAGE,YEAR,TIMESLICE,REGION);
 free variable StorageDischarge(STORAGE,YEAR,TIMESLICE,REGION);
+*---- added may20
+free variable NewStorageCapacity(STORAGE, YEAR, REGION);
+free variable CapitalInvestmentStorage(STORAGE, YEAR, REGION);
+free variable DiscountedCapitalInvestmentStorage(STORAGE, YEAR, REGION);
+free variable SalvageValueStorage(STORAGE, YEAR, REGION);
+free variable DiscountedSalvageValueStorage(STORAGE, YEAR, REGION);
+free variable TotalDiscountedStorageCost(STORAGE, YEAR, REGION);
 
 *
 * ######## Reserve Margin #############
