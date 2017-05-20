@@ -2,7 +2,7 @@ $offlisting
 * AUSTRALIA_DATA.TXT - specify AUSTRALIA Model data in format required by GAMS
 *
 * OSEMOSYS 2011.07.07
-* - 2017/04 Restyling by The prophets
+* - 2017/04 Restyling by The Magnificient prophets
 * - 2012/08 Conversion to GAMS by Ken Noble.Noble-Soft Systems
 *
 
