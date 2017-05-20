@@ -205,16 +205,19 @@ positive variable ModelPeriodCostByRegion (REGION);
 * ############### Storage Variables #############
 *
 free variable NetStorageCharge(STORAGE,YEAR,TIMESLICE,REGION);
-free variable StorageLevel(STORAGE,BOUNDARY_INSTANCES,REGION);
+positive variable StorageLevel(STORAGE,BOUNDARY_INSTANCES,REGION);
 free variable StorageCharge(STORAGE,YEAR,TIMESLICE,REGION);
 free variable StorageDischarge(STORAGE,YEAR,TIMESLICE,REGION);
 *---- added may20
-free variable NewStorageCapacity(STORAGE,YEAR,REGION);
-free variable CapitalInvestmentStorage(STORAGE,YEAR,REGION);
-free variable DiscountedCapitalInvestmentStorage(STORAGE,YEAR,REGION);
-free variable SalvageValueStorage(STORAGE,YEAR,REGION);
-free variable DiscountedSalvageValueStorage(STORAGE,YEAR,REGION);
-free variable TotalDiscountedStorageCost(STORAGE,YEAR,REGION);
+positive variable StorageLowerLimit(STORAGE,YEAR,REGION);
+positive variable StorageUpperLimit(STORAGE,YEAR,REGION);
+positive variable AccumulatedNewStorageCapacity(STORAGE,YEAR,REGION);
+positive variable NewStorageCapacity(STORAGE,YEAR,REGION);
+positive variable CapitalInvestmentStorage(STORAGE,YEAR,REGION);
+positive variable DiscountedCapitalInvestmentStorage(STORAGE,YEAR,REGION);
+positive variable SalvageValueStorage(STORAGE,YEAR,REGION);
+positive variable DiscountedSalvageValueStorage(STORAGE,YEAR,REGION);
+positive variable TotalDiscountedStorageCost(STORAGE,YEAR,REGION);
 
 *
 * ######## Reserve Margin #############
