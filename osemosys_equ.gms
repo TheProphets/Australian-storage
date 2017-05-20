@@ -373,6 +373,20 @@ equation S4_StorageLevelAtInflection(BOUNDARY_INSTANCES,STORAGE,REGION);
 S4_StorageLevelAtInflection(b,s,r)..
     StorageLevel(s,b,r)=e= sum((l,y), (NetStorageCharge(s,y,l,r)/YearSplit(l,y)*StorageInflectionTimes(y,l,b)));
 
+*--     INVESTMENT
+*-- addded may20
+equation SI4_UndiscountedCapitalInvestmentStorage(STORAGE, YEAR,REGION);
+SI4_UndiscountedCapitalInvestmentStorage(s,y,r)..
+    CapitalInvestmentStorage(s,y,r)=e= CapitalCostStorage(s,y,r)*NewStorageCapacity(s,y,r);
+
+*GNU eqation    s.t. SI5_DiscountingCapitalInvestmentStorage{r in REGION, s in STORAGE, y in YEAR}: CapitalInvestmentStorage[r,s,y]/((1+DiscountRateStorage[r,s])^(y-min{yy in YEAR} min(yy))) = DiscountedCapitalInvestmentStorage[r,s,y];
+equation SI5_DiscountingCapitalInvestmentStorage (STORAGE,YEAR,REGION);
+SI5_DiscountingCapitalInvestmentStorage(s,y,r)..
+    DiscountedCapitalInvestmentStorage (s,y,r) =e= CapitalInvestmentStorage(s,y,r)/( (1+DiscountRateStorage(r,s))^ y-min(yy in YEAR)));
+    
+
+
+*--           CONSTRAINTS
 equation S5_StorageLowerLimit(BOUNDARY_INSTANCES,STORAGE,REGION);
 S5_StorageLowerLimit(b,s,r)..
     StorageLevel(s,b,r) =g= StorageLowerLimit(r,s);

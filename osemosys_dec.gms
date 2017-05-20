@@ -88,8 +88,13 @@ parameter FixedCost(REGION,TECHNOLOGY,YEAR) 'Cost per unit of capacity of that t
 parameter StorageInflectionTimes(YEAR,TIMESLICE,BOUNDARY_INSTANCES);
 parameter TechnologyToStorage(REGION,TECHNOLOGY,STORAGE,MODE_OF_OPERATION) 'Link a technology to a storage facility for charging the storage';
 parameter TechnologyFromStorage(REGION,TECHNOLOGY,STORAGE,MODE_OF_OPERATION) 'Link a technology to a storage facility for discharging the storage';
-parameter StorageUpperLimit(REGION,STORAGE);
-parameter StorageLowerLimit(REGION,STORAGE);
+*--- added may20
+parameter StorageLevelStart(STORAGE,REGION); 'Available storage capacity att beginning of the modelling period'
+parameter MinStorageCharge(REGION,STORAGE,YEAR); 'Fraction of the maximum capacity, ensure that the storage unit is never emptied completely'
+parameter OperationalLifeStorage(REGION,STORAGE);
+parameter CapitalCostStorage(REGION,STORAGE,YEAR);
+parameter DiscountRateStorage(REGION,STORAGE);
+parameter ResidualStorageCapacity(REGION,STORAGE,YEAR); 'Residual capacities from before the year in exam'
 
 *
 * ######## Capacity Constraints #############
@@ -200,9 +205,19 @@ positive variable ModelPeriodCostByRegion (REGION);
 * ############### Storage Variables #############
 *
 free variable NetStorageCharge(STORAGE,YEAR,TIMESLICE,REGION);
-free variable StorageLevel(STORAGE,BOUNDARY_INSTANCES,REGION);
+positive variable StorageLevel(STORAGE,BOUNDARY_INSTANCES,REGION);
 free variable StorageCharge(STORAGE,YEAR,TIMESLICE,REGION);
 free variable StorageDischarge(STORAGE,YEAR,TIMESLICE,REGION);
+*---- added may20
+positive variable StorageLowerLimit(STORAGE,YEAR,REGION);
+positive variable StorageUpperLimit(STORAGE,YEAR,REGION);
+positive variable AccumulatedNewStorageCapacity(STORAGE,YEAR,REGION);
+positive variable NewStorageCapacity(STORAGE,YEAR,REGION);
+positive variable CapitalInvestmentStorage(STORAGE,YEAR,REGION);
+positive variable DiscountedCapitalInvestmentStorage(STORAGE,YEAR,REGION);
+positive variable SalvageValueStorage(STORAGE,YEAR,REGION);
+positive variable DiscountedSalvageValueStorage(STORAGE,YEAR,REGION);
+positive variable TotalDiscountedStorageCost(STORAGE,YEAR,REGION);
 
 *
 * ######## Reserve Margin #############
