@@ -618,6 +618,8 @@ parameter TechWithCapacityNeededToMeetPeakTS /
   AUSTRALIA.E31  1
   AUSTRALIA.E51  1
   AUSTRALIA.E70  1
+  AUSTRALIA.PVP  1
+  AUSTRALIA.HWT  1
 /;
 *option TechWithCapacityNeededToMeetPeakTS:4:0:1; display TechWithCapacityNeededToMeetPeakTS;
 
