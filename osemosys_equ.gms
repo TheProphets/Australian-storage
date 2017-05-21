@@ -374,18 +374,36 @@ S4_StorageLevelAtInflection(b,s,r)..
     StorageLevel(s,b,r)=e= sum((l,y), (NetStorageCharge(s,y,l,r)/YearSplit(l,y)*StorageInflectionTimes(y,l,b)));
 
 *--     INVESTMENT
-*-- addded may20
-equation SI4_UndiscountedCapitalInvestmentStorage(STORAGE, YEAR,REGION);
+*-- added may21
+equation SI4_UndiscountedCapitalInvestmentStorage(STORAGE,YEAR,REGION);
 SI4_UndiscountedCapitalInvestmentStorage(s,y,r)..
     CapitalInvestmentStorage(s,y,r)=e= CapitalCostStorage(s,y,r)*NewStorageCapacity(s,y,r);
 
 *GNU eqation    s.t. SI5_DiscountingCapitalInvestmentStorage{r in REGION, s in STORAGE, y in YEAR}: CapitalInvestmentStorage[r,s,y]/((1+DiscountRateStorage[r,s])^(y-min{yy in YEAR} min(yy))) = DiscountedCapitalInvestmentStorage[r,s,y];
 equation SI5_DiscountingCapitalInvestmentStorage (STORAGE,YEAR,REGION);
 SI5_DiscountingCapitalInvestmentStorage(s,y,r)..
-    DiscountedCapitalInvestmentStorage (s,y,r) =e= CapitalInvestmentStorage(s,y,r)/( (1+DiscountRateStorage(r,s))^ y-min(yy in YEAR)));
-    
+    DiscountedCapitalInvestmentStorage(s,y,r) =e= CapitalInvestmentStorage(s,y,r)/( (1+DiscountRateStorage(r,s))^ (y-smin(yy,YearVal(yy))));
 
+equation SI6_SalvageValueStorageAtEndOfPeriod (STORAGE, YEAR, REGION);
+SI6_SalvageValueStorageAtEndOfPeriod(s,y,r)..
+         if ( ( (y+OperationalLifeStorage(r,s) -1) <= smax( yy, YearVal(yy) ) ),
+                 SalvageValueStorage(s,y,r) =e= 0;
+         elseif ( (y+OperationalLifeStorage(r,s) -1) > smax( yy, YearVal(yy)) and DiscountRateStorage(r,s)=0 ),
+                 SalvageValueStorage(s,y,r) =e= CapitalInvestmentStorage(s,y,r) * ( 1- smax(yy, YearVal(yy)) -y+1 ) / OperationalLifeStorage(r,s);
+         else ( (y+OperationalLifeStorage(r,s) -1) > smax( yy, YearVal(yy)) and DiscountRateStorage(r,s)>0 ),
+               SalvageValueStorage(s,y,r) =e= CapitalInvestmentStorage(s,y,r) * ( 1-  ( (1+DiscountRateStorage(r,s)) ^(smax(yy, YearVal(yy))-y+1) -1 )/( ( 1+DiscountRateStorage(r,s) )^( OperationalLifeStorage(r,s) )-1));
+         );
+		 
 
+equation SI9_SalvageValueStorageDiscountedToStartYear (STORAGE,YEAR,REGION);
+SI9_SalvageValueStorageDiscountedToStartYear(s,y,r)..
+		DiscountedSalvageValueStorage(s,y,r) =e= SalvageValueStorage(s,y,r)/ ((1+ DiscountRateStorage(r,s))^ (smax(yy,YearVal(yy)) -smin(yy,YearVal(yy)) +1));
+		
+equation SI10_TotalDiscountedCostByStorage(STORAGE,YEAR,REGION);
+SI10_TotalDiscountedCostByStorage(s,y,r)..
+		TotalDiscountedStorageCost(s,y,r) =e= DiscountedCapitalValueStorage(s,y,r) - DiscountedSalvageValueStorage(s,y,r);
+
+		
 *--           CONSTRAINTS
 equation S5_StorageLowerLimit(BOUNDARY_INSTANCES,STORAGE,REGION);
 S5_StorageLowerLimit(b,s,r)..
