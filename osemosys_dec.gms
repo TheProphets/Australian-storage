@@ -89,7 +89,7 @@ parameter StorageInflectionTimes(YEAR,TIMESLICE,BOUNDARY_INSTANCES);
 parameter TechnologyToStorage(REGION,TECHNOLOGY,STORAGE,MODE_OF_OPERATION) 'Link a technology to a storage facility for charging the storage';
 parameter TechnologyFromStorage(REGION,TECHNOLOGY,STORAGE,MODE_OF_OPERATION) 'Link a technology to a storage facility for discharging the storage';
 *--- added may20
-parameter StorageLevelStart(STORAGE,REGION); 'Available storage capacity att beginning of the modelling period'
+parameter StorageLevelStart(REGION,STORAGE); 'Available storage capacity att beginning of the modelling period'
 parameter MinStorageCharge(REGION,STORAGE,YEAR); 'Fraction of the maximum capacity, ensure that the storage unit is never emptied completely'
 parameter OperationalLifeStorage(REGION,STORAGE);
 parameter CapitalCostStorage(REGION,STORAGE,YEAR);
