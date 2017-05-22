@@ -60,6 +60,7 @@ parameter DiscountRate(REGION,TECHNOLOGY) 'Discount rate for each region and tec
 parameter SpecifiedAnnualDemand(REGION,FUEL,YEAR) 'Demands for which "time of use" is necessarily specified during the year. It contains the total specified demand for the year';
 parameter SpecifiedDemandProfile(REGION,FUEL,TIMESLICE,YEAR) 'Annual fraction of energy-service or fuel demand required in each time slice. For each year these should sum up to one';
 parameter AccumulatedAnnualDemand(REGION,FUEL,YEAR) 'Total exogenous demand of each energy-service or fuel that must be met for each model year. This demand can be met during any timeslice(s)';
+*                                                    The user lets the solver choose as it pleases the way to satisfy the demand through the year.
 
 *
 * ######## Technology #############
@@ -74,6 +75,7 @@ parameter OperationalLife(REGION,TECHNOLOGY) 'Operational lifespan';
 parameter ResidualCapacity(REGION,TECHNOLOGY,YEAR) 'Capacity left over from a period prior to the modelling period';
 parameter InputActivityRatio(REGION,TECHNOLOGY,FUEL,MODE_OF_OPERATION,YEAR) 'Rate of input (use) of fuel per unit of rate of activity of a technology';
 parameter OutputActivityRatio(REGION,TECHNOLOGY,FUEL,MODE_OF_OPERATION,YEAR) 'Rate of output (production) of fuel per unit of rate of activity of a technology';
+* These last two parameters specify the level of fuel input that is needed toproduce some level of output
 
 *
 * ######## Technology Costs #############
