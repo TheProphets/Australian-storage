@@ -51,6 +51,7 @@ alias (s,STORAGE);
 * ####### Global #############
 *
 parameter StartYear;
+parameter RenObjective;
 parameter YearSplit(TIMESLICE,YEAR) 'Duration of a modelled time slice as a fraction of the year. The sum of each entry over the year should equal 1.';
 parameter DiscountRate(REGION,TECHNOLOGY) 'Discount rate for each region and technology';
 
@@ -183,6 +184,7 @@ positive variable Use(YEAR,TIMESLICE,FUEL,REGION);
 *
 positive variable ProductionAnnual(YEAR,FUEL,REGION);
 positive variable UseAnnual(YEAR,FUEL,REGION);
+positive variable REshare(YEAR,REGION);
 *
 
 * ############### Costing Variables #############
